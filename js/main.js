@@ -6,20 +6,28 @@
 		root.app = factory(root.jQuery);
 	}
 }(this, function ($) {
-    
+
     var app = {};
-    
-    app.prepareContent = function (cont) {
-        cont = $(cont);
-        $(document).trigger('preparecontent', [cont]);
-        return cont;
+
+    app.contentPrepare = function (data) {
+        if (typeof(data) === 'string') {
+            data = $.parseHTML(data, true);
+        }
+        var $data = $(data);
+        $(document).trigger('contentprepare', [$data]);
+        return $data;
     };
-    
-    $(function()
-    {
+
+    app.contentInit = function (data) {
+        var $data = $(data);
+        $data.trigger('contentinit', [$data]);
+        return $data;
+    };
+
+    $(function () {
         $('html').removeClass('no-js');
-        app.prepareContent($(document));
+        app.contentInit($(document));
     });
-    
+
     return app;
 }));
