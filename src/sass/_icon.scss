@@ -1,0 +1,47 @@
+.icon {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  font: 24px/1 'CustomIcons';
+  font-size: inherit;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+
+  &_fw {
+    width: 1em;
+  }
+
+  &_16 {
+    font-size: 16px;
+  }
+
+  &_24 {
+    font-size: 24px;
+  }
+
+  &_32 {
+    font-size: 32px;
+  }
+
+  &_48 {
+    font-size: 48px;
+  }
+
+  &_spin {
+    animation: spin 2s infinite linear;
+  }
+
+  &_pulse {
+    animation: spin 1s infinite steps(8);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-359deg);
+  }
+}

@@ -4,6 +4,12 @@
 # windows thumbnail cache
 Thumbs.db
 
+# npm
+/node_modules
+
+# bower
+/bower_components
+
 # composer vendor dir
 /vendor
 

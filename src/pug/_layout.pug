@@ -1,0 +1,26 @@
+include ./_nav-main
+doctype html
+html(lang="ru-RU" class="no-js")
+    head
+        meta(charset="utf-8")
+        meta(name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no")
+
+        title Проект
+        meta(name="description" content="")
+        meta(name="keywords" content="")
+        meta(name="author" content="By PaulZi [2017-02-11]")
+
+        include ./_favicons
+        include ./_vendor-head
+    body
+        div.l-root
+            header.l-header
+                address
+                    a(href="+79001234567") +7 (900) 123-45-67
+                nav
+                    +nav-main(class="nav-main_header")
+                .l-header__icon.icon.icon_logo
+            main.l-main
+                block content
+            footer.l-footer
+        include ./_vendor

@@ -1,0 +1,11 @@
+extends ./_layout.pug
+
+block content
+    section.news
+        article.news__item
+            header
+                h3 Новость
+                .news__date Создан #[time(datetime="2014-01-13 10:00:00") 01.01.2000]
+            figure
+                img(src="holder.js/200x200")
+                figcaption Название изображения
