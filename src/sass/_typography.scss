@@ -1,17 +1,16 @@
 @import "variables";
 
 body {
-  font: 14px/1.4 'Roboto', sans-serif;
+  font: 16px/1.5 'Roboto', sans-serif;
   color: $cl-default;
 }
 
 a {
-  &, &:hover, &:focus {
-    color: inherit;
-  }
+  text-decoration: none;
+  color: inherit;
 }
 
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
+p {
   margin-top: 0;
+  margin-bottom: 1em;
 }
