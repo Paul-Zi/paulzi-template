@@ -1,10 +1,11 @@
+const fs = require('fs');
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const extractCss  = new ExtractTextPlugin('../css/[name].css');
-const extractHtml = new ExtractTextPlugin('../html/[name].html');
+const extractHtml = new ExtractTextPlugin('../[name].html');
 
 let browsers = [
     '> 1%',
@@ -17,10 +18,13 @@ let browsers = [
     'iOS >= 7.1'
 ];
 
+let entries = {};
+fs.readdirSync('./src/entries').forEach(file => {
+    entries[path.basename(file, '.js')] = './src/entries/' + file;
+});
+
 module.exports = {
-    entry: {
-        app: './src/js/app.js'
-    },
+    entry: entries,
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, '../../js')

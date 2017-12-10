@@ -1,6 +1,6 @@
 {
   "name": "paulzi-template",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "description": "PaulZi webpack3 template",
   "main": "js/app.js",
   "authors": [
