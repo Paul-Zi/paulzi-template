@@ -9,7 +9,9 @@ module.exports = {
     "parserOptions": {
         "sourceType": "module",
     },
-    "rules": {},
+    "rules": {
+        "no-console": 'off'
+    },
     "globals": {
         "$": true,
         "jQuery": true,

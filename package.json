@@ -1,6 +1,6 @@
 {
   "name": "paulzi-template",
-  "version": "5.1.1",
+  "version": "5.2.0",
   "description": "PaulZi webpack3 template",
   "main": "js/app.js",
   "authors": [
@@ -23,20 +23,22 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.4.0",
     "css-loader": "^0.28.0",
+    "cssnano": "^3.10.0",
     "eslint": "^4.13.0",
     "eslint-loader": "^1.7.1",
     "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.6",
     "node-sass": "^4.5.2",
     "postcss-loader": "^2.0.9",
     "pug": "^2.0.0-rc.1",
     "pug-html-loader": "^1.1.4",
-    "raw-loader": "^0.5.1",
     "sass-loader": "^6.0.3",
+    "uglifyjs-webpack-plugin": "^1.1.8",
     "webpack": "^3.10.0",
     "webpack-merge": "^4.1.1"
   },
   "scripts": {
     "build:dev": "webpack --config src/webpack/dev.config.js",
-    "build:prod": "webpack --config src/webpack/prod.config.js -p"
+    "build:prod": "webpack --config src/webpack/prod.config.js"
   }
 }

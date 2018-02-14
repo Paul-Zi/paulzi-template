@@ -1,11 +1,12 @@
 const fs = require('fs');
 const path = require('path');
+const cssnano = require('cssnano');
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const extractCss  = new ExtractTextPlugin('../css/[name].css');
-const extractHtml = new ExtractTextPlugin('../[name].html');
+const extractCss = new ExtractTextPlugin('../css/[name].css');
+const extractTmp = new ExtractTextPlugin('../tmp/pug.tmp');
 
 let browsers = [
     '> 1%',
@@ -49,9 +50,13 @@ module.exports = {
             },
             {
                 test: /\.pug$/,
-                use: extractHtml.extract([
+                use: extractTmp.extract([
                     {
-                        loader: 'raw-loader',
+                        loader: 'file-loader',
+                        options: {
+                            name: "[name].html",
+                            outputPath: '../'
+                        }
                     },
                     {
                         loader: 'pug-html-loader',
@@ -77,6 +82,11 @@ module.exports = {
                                 return [
                                     autoprefixer({
                                         browsers: browsers
+                                    }),
+                                    cssnano({
+                                        discardComments: {
+                                            removeAll: true,
+                                        },
                                     })
                                 ];
                             },
@@ -98,7 +108,7 @@ module.exports = {
     },
     plugins: [
         extractCss,
-        extractHtml,
+        extractTmp,
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',

@@ -1,0 +1,30 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+:focus {
+  outline: none;
+}
+
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+address {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+button {
+  font-family: inherit;
+}
+
+img {
+  vertical-align: top;
+}
+
+.hidden {
+  display: none;
+}
