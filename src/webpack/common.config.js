@@ -8,24 +8,19 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const extractCss = new ExtractTextPlugin('../css/[name].css');
 const extractTmp = new ExtractTextPlugin('../tmp/pug.tmp');
 
-let browsers = [
-    '> 1%',
-    'last 2 versions',
-    'last 4 Chrome versions',
-    'last 4 Firefox versions',
-    'not ie < 11',
-    'Safari >= 9',
-    'Android >= 4.4',
-    'iOS >= 7.1'
-];
-
 let entries = {};
 fs.readdirSync('./src/entries').forEach(file => {
     entries[path.basename(file, '.js')] = './src/entries/' + file;
 });
 
-module.exports = {
+module.exports = target => { return {
     entry: entries,
+    stats: {
+        children: false,
+        modules: false,
+        entrypoints: false,
+        hash: false,
+    },
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, '../../js')
@@ -39,14 +34,79 @@ module.exports = {
                     {
                         loader: 'babel-loader',
                         options: {
-                            presets: [['env', {
-                                targets: {
-                                    browsers: browsers
-                                }
-                            }]]
+                            presets: ['env']
                         }
                     }
                 ]
+            },
+            {
+                test: /\.(png|jpg|gif|svg)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '../i/[hash].[ext]',
+                        },
+                    }
+                ]
+            },
+            {
+                test: /\.css$/,
+                use: extractCss.extract([
+                    {
+                        loader: "css-loader",
+                        options: {
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        loader: "postcss-loader",
+                        options: {
+                            plugins: function () {
+                                return [
+                                    autoprefixer(),
+                                ].concat(target === 'prod' ? cssnano({
+                                        discardComments: {
+                                            removeAll: true,
+                                        },
+                                    }) : []);
+                            },
+                            sourceMap: true
+                        }
+                    }
+                ])
+            },
+            {
+                test: /\.scss$/,
+                use: extractCss.extract([
+                    {
+                        loader: "css-loader",
+                        options: {
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        loader: "postcss-loader",
+                        options: {
+                            plugins: function () {
+                                return [
+                                    autoprefixer(),
+                                ].concat(target === 'prod' ? cssnano({
+                                        discardComments: {
+                                            removeAll: true,
+                                        },
+                                    }) : []);
+                            },
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            sourceMap: true
+                        }
+                    }
+                ])
             },
             {
                 test: /\.pug$/,
@@ -66,41 +126,6 @@ module.exports = {
                     }
                 ]),
             },
-            {
-                test: /\.scss$/,
-                use: extractCss.extract([
-                    {
-                        loader: "css-loader",
-                        options: {
-                            sourceMap: true
-                        }
-                    },
-                    {
-                        loader: "postcss-loader",
-                        options: {
-                            plugins: function () {
-                                return [
-                                    autoprefixer({
-                                        browsers: browsers
-                                    }),
-                                    cssnano({
-                                        discardComments: {
-                                            removeAll: true,
-                                        },
-                                    })
-                                ];
-                            },
-                            sourceMap: true
-                        }
-                    },
-                    {
-                        loader: "sass-loader",
-                        options: {
-                            sourceMap: true
-                        }
-                    }
-                ])
-            }
         ]
     },
     externals: {
@@ -113,14 +138,16 @@ module.exports = {
             $: 'jquery',
             jQuery: 'jquery',
         }),
-        /* new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            minChunks: Infinity
-        }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'app',
-            chunks: Object.keys(entries).filter(item => item !== 'vendor'),
-            minChunks: Infinity
-        }), */
-    ]
-};
+    ],
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendor",
+                    chunks: "all"
+                }
+            }
+        }
+    }
+}};

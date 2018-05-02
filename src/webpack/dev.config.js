@@ -1,7 +1,8 @@
 const merge = require('webpack-merge');
 const common = require('./common.config.js');
+const webpack = require('webpack');
 
-module.exports = merge(common, {
+module.exports = merge(common('dev'), {
     devtool: "cheap-module-source-map",
     module: {
         rules: [
@@ -17,4 +18,10 @@ module.exports = merge(common, {
             }
         ]
     },
+    plugins: [
+        new webpack.DefinePlugin({ "process.env.NODE_ENV": JSON.stringify("development") }),
+        //new webpack.NamedModulesPlugin(),
+        //new webpack.NamedChunksPlugin(),
+    ],
+    mode: 'development',
 });

@@ -5,9 +5,9 @@
 }
 
 @mixin nav-line {
-  @include nav;
   display: flex;
   flex-flow: row;
+  @include nav;
 }
 
 @mixin container {
