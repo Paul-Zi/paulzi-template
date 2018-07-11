@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const cssnano = require('cssnano');
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 
@@ -56,21 +55,16 @@ module.exports = target => { return {
                     {
                         loader: "css-loader",
                         options: {
-                            sourceMap: true
+                            sourceMap: true,
+                            minimize: target === 'prod'
                         }
                     },
                     {
                         loader: "postcss-loader",
                         options: {
-                            plugins: function () {
-                                return [
-                                    autoprefixer(),
-                                ].concat(target === 'prod' ? cssnano({
-                                        discardComments: {
-                                            removeAll: true,
-                                        },
-                                    }) : []);
-                            },
+                            plugins: [
+                                autoprefixer(),
+                            ],
                             sourceMap: true
                         }
                     }
@@ -82,21 +76,16 @@ module.exports = target => { return {
                     {
                         loader: "css-loader",
                         options: {
-                            sourceMap: true
+                            sourceMap: true,
+                            minimize: target === 'prod'
                         }
                     },
                     {
                         loader: "postcss-loader",
                         options: {
-                            plugins: function () {
-                                return [
-                                    autoprefixer(),
-                                ].concat(target === 'prod' ? cssnano({
-                                        discardComments: {
-                                            removeAll: true,
-                                        },
-                                    }) : []);
-                            },
+                            plugins: [
+                                autoprefixer(),
+                            ],
                             sourceMap: true
                         }
                     },
