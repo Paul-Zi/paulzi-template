@@ -1,0 +1,26 @@
+@mixin container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  // @include grid-container(sm, lg);
+}
+
+@mixin ul-block {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@mixin icon {
+  display: inline-block;
+  font-family: 'CustomIcons' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  vertical-align: middle;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

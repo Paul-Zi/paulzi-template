@@ -1,7 +1,0 @@
-@function rem($px, $base: 16) {
-  @return $px / $base + 0rem;
-}
-
-@function em($px, $base: 16) {
-  @return $px / $base + 0em;
-}

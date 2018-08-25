@@ -117,9 +117,11 @@ module.exports = target => { return {
             },
         ]
     },
+    /*
     externals: {
         "jquery": "jQuery"
     },
+    */
     plugins: [
         extractCss,
         extractTmp,
@@ -128,6 +130,7 @@ module.exports = target => { return {
             jQuery: 'jquery',
         }),
     ],
+    /*
     optimization: {
         splitChunks: {
             cacheGroups: {
@@ -139,4 +142,5 @@ module.exports = target => { return {
             }
         }
     }
+    */
 }};

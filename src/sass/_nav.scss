@@ -1,0 +1,7 @@
+@import "includes";
+
+.nav {
+  &__list {
+    @include ul-block;
+  }
+}

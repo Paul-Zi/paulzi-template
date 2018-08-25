@@ -1,0 +1,32 @@
+@import "includes";
+@import "fonts/roboto";
+
+body {
+  font: 1rem/normal 'roboto', sans-serif;
+  color: $cl-default;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+h1,h2,h3, .h1,.h2,.h3 {
+  margin-top: 1em;
+  margin-bottom: 0.3em;
+}
+
+p, h1,h2,h3, .h1,.h2,.h3 {
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

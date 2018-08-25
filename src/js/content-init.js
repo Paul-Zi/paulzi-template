@@ -1,0 +1,3 @@
+$(() => {
+    $(document).trigger('contentinit', [$(document)]);
+});

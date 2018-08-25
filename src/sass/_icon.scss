@@ -1,0 +1,30 @@
+@import "includes";
+@import "fonts/custom-icons";
+
+.icon {
+  @include icon();
+
+  &_spin {
+    animation: spin 1s infinite linear;
+  }
+
+  &_pulse {
+    animation: spin 1s infinite steps(8);
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(359deg);
+    }
+  }
+
+  &_arw-down:before { content: '\e800'; }
+  &_arw-left:before { content: '\e801'; }
+  &_arw-right:before { content: '\e802'; }
+  &_arw-up:before { content: '\e803'; }
+  &_close:before { content: '\e804'; }
+  &_spinner:before { content: '\e805'; }
+}

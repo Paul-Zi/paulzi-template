@@ -1,0 +1,9 @@
+mixin nav(data)
+    nav.nav&attributes(data.options)
+        ul.nav__list
+            each item in data.items
+                li.nav__item
+                    if typeof(item) === 'string'
+                        a.nav__link(href="#")= item
+                    else
+                        a.nav__link(href=item[1])= item[0]

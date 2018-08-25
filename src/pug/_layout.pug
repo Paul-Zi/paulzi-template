@@ -1,9 +1,10 @@
+include _nav
 doctype html
 html(lang="ru-RU" class="no-js")
     head
         meta(charset="utf-8")
         meta(name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no")
-        meta(name="author" content="By PaulZi [2018-05-02]")
+        meta(name="author" content="By PaulZi [2018-08-25]")
 
         title Template
         meta(name="description" content="")
@@ -12,9 +13,17 @@ html(lang="ru-RU" class="no-js")
         include ./_favicons
         include ./_vendor-head
     body
-        div.l__root
-            header.l__header
-            main.l__main
+        div.l-root
+            header.l-header
+                +nav({
+                    options: {'class': 'nav_main'},
+                    items: [
+                        'О нас',
+                        'Новости',
+                        'Контакты'
+                    ]
+                })
+            main.l-main
                 block main
-            footer.l__footer
+            footer.l-footer
         include ./_vendor

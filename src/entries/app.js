@@ -1,5 +1,5 @@
-import "../components/common";
-import "../components/content-init";
-import "../components/example";
+import "../sass/index.scss";
+
+import "../js/content-init";
 
 import "../pug/index.pug";
