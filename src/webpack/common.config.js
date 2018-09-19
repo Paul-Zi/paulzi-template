@@ -33,7 +33,7 @@ module.exports = target => { return {
                     {
                         loader: 'babel-loader',
                         options: {
-                            presets: ['env']
+                            presets: ['@babel/preset-env']
                         }
                     }
                 ]
