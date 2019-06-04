@@ -3,7 +3,7 @@ const common = require('./common.config.js');
 const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
-module.exports = merge(common('prod'), {
+module.exports = merge(common, {
     //devtool: "source-map",
     plugins: [
         new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }),

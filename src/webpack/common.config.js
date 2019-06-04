@@ -1,18 +1,15 @@
 const fs = require('fs');
 const path = require('path');
-const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
-
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const extractCss = new ExtractTextPlugin('../css/[name].css');
-const extractTmp = new ExtractTextPlugin('../tmp/pug.tmp');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 let entries = {};
 fs.readdirSync('./src/entries').forEach(file => {
     entries[path.basename(file, '.js')] = './src/entries/' + file;
 });
 
-module.exports = target => { return {
+
+module.exports = {
     entry: entries,
     stats: {
         children: false,
@@ -50,56 +47,42 @@ module.exports = target => { return {
                 ]
             },
             {
-                test: /\.css$/,
-                use: extractCss.extract([
+                test: /\.(css|scss)$/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
                     {
                         loader: "css-loader",
                         options: {
                             sourceMap: true,
-                            minimize: target === 'prod'
                         }
                     },
                     {
                         loader: "postcss-loader",
                         options: {
-                            plugins: [
-                                autoprefixer(),
-                            ],
-                            sourceMap: true
-                        }
+                            config: {
+                                path: path.resolve(__dirname, './postcss.config.js'),
+                            },
+                        },
                     }
-                ])
+                ],
             },
             {
                 test: /\.scss$/,
-                use: extractCss.extract([
-                    {
-                        loader: "css-loader",
-                        options: {
-                            sourceMap: true,
-                            minimize: target === 'prod'
-                        }
-                    },
-                    {
-                        loader: "postcss-loader",
-                        options: {
-                            plugins: [
-                                autoprefixer(),
-                            ],
-                            sourceMap: true
-                        }
-                    },
+                use: [
                     {
                         loader: "sass-loader",
                         options: {
-                            sourceMap: true
+                            sourceMap: true,
+                            precision: 8
                         }
                     }
-                ])
+                ],
             },
             {
                 test: /\.pug$/,
-                use: extractTmp.extract([
+                loaders: [
                     {
                         loader: 'file-loader',
                         options: {
@@ -108,12 +91,12 @@ module.exports = target => { return {
                         }
                     },
                     {
-                        loader: 'pug-html-loader',
+                        loader: "pug-html-loader",
                         options: {
-                            pretty: true
+                            "pretty":true
                         }
                     }
-                ]),
+                ],
             },
         ]
     },
@@ -123,8 +106,7 @@ module.exports = target => { return {
     },
     */
     plugins: [
-        extractCss,
-        extractTmp,
+        new MiniCssExtractPlugin({filename: '../css/[name].css'}),
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',
@@ -143,4 +125,4 @@ module.exports = target => { return {
         }
     }
     */
-}};
+};

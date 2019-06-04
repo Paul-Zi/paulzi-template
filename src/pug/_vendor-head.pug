@@ -1,1 +1,4 @@
-link(rel="stylesheet", href="/css/app.css")
+link(rel="stylesheet", href="/css/preload.css")
+link(href="/css/app.css" rel="stylesheet" media="none" onload="this.media='all'")
+noscript
+    link(href="/css/app.css" rel="stylesheet")
